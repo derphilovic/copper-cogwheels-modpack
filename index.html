@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copper & Cogwheels | Minecraft Modpack</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Rye for headers (Steampunk vibe), Lato for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Rye&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        copper: {
+                            100: '#f5e6da',
+                            300: '#dfb08c',
+                            500: '#b87333', /* Classic Copper */
+                            700: '#8a5220',
+                            900: '#4a2c11',
+                        },
+                        steam: {
+                            black: '#121212',
+                            dark: '#1e1e1e',
+                            panel: '#2a2a2a'
+                        }
+                    },
+                    fontFamily: {
+                        header: ['Rye', 'serif'],
+                        body: ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'copper-gradient': 'linear-gradient(135deg, #b87333 0%, #dfb08c 50%, #8a5220 100%)',
+                        'dark-mesh': 'radial-gradient(#2a2a2a 1px, transparent 1px)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8a5220; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b87333; 
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 12s linear infinite;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+        }
+        
+        .copper-border {
+            border: 1px solid #8a5220;
+            box-shadow: 0 0 10px rgba(138, 82, 32, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-steam-black text-gray-200 font-body overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 bg-dark-mesh [background-size:20px_20px] opacity-20 pointer-events-none z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-steam-dark/95 backdrop-blur-md border-b border-copper-700/50 shadow-lg shadow-black/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+                    <i class="ph-fill ph-gear text-copper-500 text-3xl animate-spin-slow"></i>
+                    <span class="font-header text-2xl bg-clip-text text-transparent bg-copper-gradient filter drop-shadow-md">
+                        Copper & Cogwheels
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="flex items-baseline space-x-4">
+                        <button onclick="showPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md text-sm font-medium text-copper-100 hover:text-white hover:bg-copper-900/50 transition-all border border-transparent hover:border-copper-700">
+                            Übersicht
+                        </button>
+                        <button onclick="showPage('downloads')" id="nav-downloads" class="nav-btn px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-copper-900/50 transition-all border border-transparent hover:border-copper-700">
+                            Downloads
+                        </button>
+                        <a href="https://github.com/derphilovic" target="_blank" class="px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-copper-900/50 transition-all flex items-center gap-2">
+                            <i class="ph-fill ph-github-logo"></i> Quellcode
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-copper-300 hover:text-white p-2">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-steam-dark border-b border-copper-900">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-copper-900/50">Übersicht</button>
+                <button onclick="showPage('downloads'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-copper-900/50">Downloads</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow relative z-10 container mx-auto px-4 py-8">
+        
+        <!-- ==================== HOME PAGE ==================== -->
+        <div id="page-home" class="space-y-16">
+            
+            <!-- Hero Section -->
+            <section class="text-center py-12 md:py-20 relative">
+                <!-- Decorative Cogs Background (Absolute) -->
+                <i class="ph-fill ph-gear absolute top-10 left-10 text-8xl text-copper-900/20 animate-spin-slow hidden lg:block"></i>
+                <i class="ph-fill ph-gear absolute bottom-10 right-10 text-9xl text-copper-900/20 animate-spin-slow hidden lg:block" style="animation-direction: reverse;"></i>
+
+                <div class="inline-block p-4 rounded-full bg-copper-900/30 border border-copper-700/50 mb-6 animate-float">
+                    <i class="ph-fill ph-factory text-5xl text-copper-300"></i>
+                </div>
+                
+                <h1 class="font-header text-5xl md:text-7xl text-white mb-6 text-glow">
+                    The Age of <span class="bg-clip-text text-transparent bg-copper-gradient">Steam</span>
+                </h1>
+                
+                <p class="max-w-2xl mx-auto text-xl text-gray-400 mb-10 leading-relaxed"> 
+                    <span class="text-copper-300 font-semibold">Copper & Cogwheels</span> bringt dir sehr viele möglichkeiten um mit Create, Applied Energistics 2 oder Farmers Delight zu arbeiten :)
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="showPage('downloads')" class="px-8 py-4 bg-gradient-to-r from-copper-700 to-copper-500 rounded-lg text-white font-bold text-lg shadow-lg hover:shadow-copper-500/20 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-download-simple"></i>
+                        Download Modpack
+                    </button>
+                    <a href="#features" class="px-8 py-4 bg-steam-panel border border-copper-700/50 rounded-lg text-copper-100 font-bold text-lg hover:bg-copper-900/30 transition-all flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-info"></i>
+                        Lerne mehr
+                    </a>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section id="features" class="max-w-6xl mx-auto">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-px bg-copper-900 flex-grow"></div>
+                    <h2 class="font-header text-3xl text-copper-100">Main Features</h2>
+                    <div class="h-px bg-copper-900 flex-grow"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-steam-panel p-6 rounded-xl copper-border hover:border-copper-500 transition-colors group">
+                        <div class="w-12 h-12 bg-copper-900/50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-wrench text-2xl text-copper-300"></i>
+                        </div>
+                        <h3 class="font-header text-xl text-copper-100 mb-2">Create</h3>
+                        <p class="text-gray-400 text-sm">Baue komplexe Maschienen und anlagen mit Create und vielen addons.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="bg-steam-panel p-6 rounded-xl copper-border hover:border-copper-500 transition-colors group">
+                        <div class="w-12 h-12 bg-copper-900/50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-paint-brush text-2xl text-copper-300"></i>
+                        </div>
+                        <h3 class="font-header text-xl text-copper-100 mb-2">Neue baublöcke</h3>
+                        <p class="text-gray-400 text-sm">Es werden sehr viele Möglichkeiten, seine Bauwerke & Maschienen zu gestalten, hinzugefügt.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="bg-steam-panel p-6 rounded-xl copper-border hover:border-copper-500 transition-colors group">
+                        <div class="w-12 h-12 bg-copper-900/50 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-rocket text-2xl text-copper-300"></i>
+                        </div>
+                        <h3 class="font-header text-xl text-copper-100 mb-2">Optimisierung</h3>
+                        <p class="text-gray-400 text-sm">Relativ leicht und ziemlich stabil. Viele performance mods sorgen dafür, dass man keinen Supercomputer braucht um das modpack zu spielen.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ==================== DOWNLOADS PAGE ==================== -->
+        <div id="page-downloads" class="hidden max-w-4xl mx-auto space-y-12">
+            
+            <div class="text-center mb-12">
+                <h1 class="font-header text-4xl text-white mb-4">Downloads</h1>
+                <p class="text-gray-400">Wähle eine Version aus. Empfohlene launcher: Prism, CurseForge or ATlauncher.</p>
+            </div>
+
+            <!-- Warning Box -->
+            <div class="bg-orange-900/20 border border-orange-500/50 p-4 rounded-lg flex items-start gap-3">
+                <i class="ph-fill ph-warning text-orange-500 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-orange-200 text-sm uppercase tracking-wide mb-1">Installations Hinweis</h4>
+                    <p class="text-orange-100/80 text-sm">Stelle sicher dass du Java 21 installiert hast für Minecraft 1.21+ versionen. Gib Minecraft mindestens 4GB RAM.</p>
+                </div>
+            </div>
+
+            <!-- Version List -->
+            <div class="space-y-4">
+                
+                <!-- Latest Version -->
+                <div class="bg-steam-panel rounded-xl p-6 border border-copper-500 shadow-lg shadow-copper-900/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-copper-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Neuste</div>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <div class="flex items-baseline gap-3">
+                                <h3 class="font-header text-2xl text-white">v0.1.0 <span class="text-copper-300 font-sans text-lg font-normal">Preview version</span></h3>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-1">Veröffentlicht: DEC 19, 2025 • MC 1.21.1</p>
+                            <div class="mt-3 flex gap-2">
+                                <span class="px-2 py-0.5 rounded bg-green-900/30 text-green-400 text-xs border border-green-900">Stable</span>
+                                <span class="px-2 py-0.5 rounded bg-blue-900/30 text-blue-400 text-xs border border-blue-900">NeoForge</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 w-full md:w-auto">
+                            <a href="https://drive.google.com/file/d/1EQqSevgZ67X3uEyi99Vm-6ReaFgYUMBC/view?usp=drive_link" target="_blank" class="flex-1 md:flex-none px-6 py-3 bg-copper-600 hover:bg-copper-500 text-white rounded-lg font-bold transition-colors flex items-center justify-center gap-2 no-underline">
+                                <i class="ph-bold ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Changelog Toggle -->
+                    <details class="mt-6 group">
+                        <summary class="cursor-pointer text-copper-300 text-sm flex items-center gap-2 hover:text-copper-100 transition-colors list-none">
+                            <i class="ph-bold ph-caret-right group-open:rotate-90 transition-transform"></i>
+                            View Changelog
+                        </summary>
+                        <div class="mt-3 pl-6 border-l border-copper-900 text-gray-400 text-sm space-y-1">
+                            <p>• Idk, ist die erste version, updates gab es noch keine</p>
+                            <p>• Entfernte 'Herobrine' (vielleicht)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Old Version -->
+                <div class="bg-steam-panel rounded-xl p-6 border border-copper-900/50 hover:border-copper-700 transition-colors opacity-80 hover:opacity-100">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h3 class="font-header text-xl text-gray-300">v0.0.0 - v∞.∞.∞ <span class="text-gray-500 font-sans text-base font-normal">Alle versionen</span></h3>
+                            <p class="text-gray-500 text-sm mt-1">Released: DEC 19, 2025 • MC 1.21.1</p>
+                        </div>
+                        <a href="https://drive.google.com/drive/folders/1Zo7dvQF86iqXJSw2ucFGBdnRbQOVqQmg?usp=drive_link" target="_blank" class="px-4 py-2 bg-steam-black border border-copper-900 text-copper-300 hover:text-white rounded-lg text-sm transition-colors block text-center">
+                            Archive Download
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-steam-black border-t border-copper-900 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-center md:text-left">
+                    <h5 class="font-header text-copper-500 text-lg">Copper & Cogwheels</h5>
+                    <p class="text-gray-600 text-sm">Ich mag züge</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-copper-400 transition-colors"><i class="ph-fill ph-discord-logo text-2xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-copper-400 transition-colors"><i class="ph-fill ph-twitter-logo text-2xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-copper-400 transition-colors"><i class="ph-fill ph-github-logo text-2xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic for SPA-like navigation -->
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.getElementById('page-home').classList.add('hidden');
+            document.getElementById('page-downloads').classList.add('hidden');
+            
+            // Show selected page
+            document.getElementById('page-' + pageId).classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Update Nav State
+            updateNavState(pageId);
+        }
+
+        function updateNavState(activePage) {
+            const btnHome = document.getElementById('nav-home');
+            const btnDownloads = document.getElementById('nav-downloads');
+            
+            // Reset classes
+            const baseClasses = "nav-btn px-4 py-2 rounded-md text-sm font-medium transition-all border border-transparent hover:border-copper-700 hover:bg-copper-900/50";
+            const inactiveText = "text-gray-300";
+            const activeClasses = "text-copper-100 bg-copper-900/30 border-copper-700";
+
+            // Reset
+            btnHome.className = `${baseClasses} ${inactiveText}`;
+            btnDownloads.className = `${baseClasses} ${inactiveText}`;
+
+            // Apply active
+            if(activePage === 'home') {
+                btnHome.className = `${baseClasses} ${activeClasses}`;
+            } else {
+                btnDownloads.className = `${baseClasses} ${activeClasses}`;
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize
+        showPage('home');
+    </script>
+</body>
+</html>
