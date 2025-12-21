@@ -168,9 +168,9 @@
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button onclick="showPage('downloads')" class="px-8 py-4 bg-gradient-to-r from-copper-700 to-copper-500 rounded-lg text-white font-bold text-lg shadow-lg hover:shadow-copper-500/20 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
                         <i class="ph-bold ph-download-simple"></i>
-                        Download Modpack
+                        Downloade das Modpack
                     </button>
-                    <a href="#features" class="px-8 py-4 bg-steam-panel border border-copper-700/50 rounded-lg text-copper-100 font-bold text-lg hover:bg-copper-900/30 transition-all flex items-center justify-center gap-2">
+                    <a href="#mod-list" onclick="openModList(event)" class="px-8 py-4 bg-steam-panel border border-copper-700/50 rounded-lg text-copper-100 font-bold text-lg hover:bg-copper-900/30 transition-all flex items-center justify-center gap-2">
                         <i class="ph-bold ph-info"></i>
                         Lerne mehr
                     </a>
@@ -181,7 +181,7 @@
             <section id="features" class="max-w-6xl mx-auto">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-px bg-copper-900 flex-grow"></div>
-                    <h2 class="font-header text-3xl text-copper-100">Haupt Features</h2>
+                    <h2 class="font-header text-3xl text-copper-100">Main Features</h2>
                     <div class="h-px bg-copper-900 flex-grow"></div>
                 </div>
 
@@ -214,7 +214,109 @@
                     </div>
                 </div>
             </section>
+            <!-- Mod List (Expandable & Accessible) -->
+            <div class="mt-10 max-w-6xl mx-auto px-2">
+                <details id="mod-list" class="bg-steam-panel p-6 rounded-xl copper-border" aria-labelledby="modlist-summary">
+                    <summary id="modlist-summary" class="cursor-pointer text-copper-300 text-lg font-medium flex items-center gap-2 list-none">
+                        <i class="ph-bold ph-list"></i>
+                        Modliste anzeigen
+                    </summary>
 
+                    <p class="text-gray-400 text-sm">Es werden bei weitem nicht alle mods aufgeführt, hauptsächlich größere oder bemerkbarere Mods werden gennant.</p>
+
+                    <div class="mt-4 text-gray-300">
+                        <div class="flex justify-end gap-2 mb-4">
+                            <button onclick="toggleAll(true)" class="px-3 py-1 bg-copper-700 text-white rounded text-sm">Alle öffnen</button>
+                            <button onclick="toggleAll(false)" class="px-3 py-1 bg-steam-black border border-copper-900 text-copper-300 rounded text-sm">Alle schließen</button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <details class="pl-4" open>
+                                <summary class="font-semibold text-copper-100">Haupt Mods</summary>
+                                <ul class="mt-2 list-disc list-inside text-gray-400 space-y-1">
+                                    <li>Create</li>
+                                    <li>Applied Energistics 2</li>
+                                    <li>Farmer's Delight</li>
+                                    <li>Immersive Aircraft</li>
+                                    <li>Biomes O'Plenty</li>
+                                    <li>Computer Craft: Tweaked</li>
+                                    <li>Critters and Companions</li>
+                                </ul>
+                            </details>
+
+                            <details class="pl-4">
+                                <summary class="font-semibold text-copper-100">Create Addons</summary>
+                                <ul class="mt-2 list-disc list-inside text-gray-400 space-y-1">
+                                    <li>Create Crafts and Additions</li>
+                                    <li>Create Deco</li>
+                                    <li>Create Mechanical Chicken</li>
+                                    <li>Create Mechanical Cow</li>
+                                    <li>Create More: Package Couriers</li>
+                                    <li>Create More: Pipe Bombs in Packages</li>
+                                    <li>Create Ore Excavation</li>
+                                    <li>Create Ratatouille</li>
+                                    <li>Create Slice & Dice</li>
+                                    <li>Create Stuff'N Additions</li>
+                                    <li>Create: Applied Kinetics</li>
+                                    <li>Create: Bells & Whistles</li>
+                                    <li>Create: Blocks & Bogies</li>
+                                    <li>Create: Broken Bad</li>
+                                    <li>Create: Cardboard Things</li>
+                                    <li>Create: Copycats+</li>
+                                    <li>Create: Cyber Goggles</li>
+                                    <li>Create: Design n'Decor</li>
+                                    <li>Create: Dreams & Desires</li>
+                                    <li>Create: Enchantment Industry</li>
+                                    <li>Create: Escalated</li>
+                                    <li>Create: Misc and Things</li>
+                                    <li>Create: Numismatics</li>
+                                    <li>Create: Power Loader</li>
+                                    <li>Create: Renewable Diamonds</li>
+                                    <li>Create: Vibrant Vaults</li>
+                                </ul>
+                            </details>
+
+                            <details class="pl-4">
+                                <summary class="font-semibold text-copper-100">Performance & Utilities</summary>
+                                <ul class="mt-2 list-disc list-inside text-gray-400 space-y-1">
+                                    <li>BadOptimizations</li>
+                                    <li>C²ME</li>
+                                    <li>Crash Assistant</li>
+                                    <li>Distant Horizons</li>
+                                    <li>Entity Culling</li>
+                                    <li>Ferrite Core</li>
+                                    <li>Iris Shaders</li>
+                                    <li>Lithium</li>
+                                    <li>Packet Fixer</li>
+                                    <li>Sodium</li>
+                                    <li>Spark</li>
+                                    <li>Kleinere hab ich weggelassen</li>
+                                </ul>
+                            </details>
+
+                            <details class="pl-4">
+                                <summary class="font-semibold text-copper-100">Quality of Life</summary>
+                                <ul class="mt-2 list-disc list-inside text-gray-400 space-y-1">
+                                    <li>AppleSkin</li>
+                                    <li>BetterF3</li>
+                                    <li>Better Third Person</li>
+                                    <li>Configured</li>
+                                    <li>Controlling</li>
+                                    <li>Current Game Music Track</li>
+                                    <li>Do a barrel roll</li>
+                                    <li>Essential Mod</li>
+                                    <li>Forgematica (Litematica)</li>
+                                    <li>Jade</li>
+                                    <li>Just Enough Items</li>
+                                    <li>Modern World Creation</li>
+                                    <li>Simple Voice Chat</li>
+                                    <li>Xaeros World & Minimap</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+                </details>
+            </div>
         </div>
 
         <!-- ==================== DOWNLOADS PAGE ==================== -->
@@ -234,6 +336,8 @@
                 </div>
             </div>
 
+
+
             <!-- Version List -->
             <div class="space-y-4">
                 
@@ -243,16 +347,16 @@
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
                             <div class="flex items-baseline gap-3">
-                                <h3 class="font-header text-2xl text-white">v0.1.0 <span class="text-copper-300 font-sans text-lg font-normal">Preview version</span></h3>
+                                <h3 class="font-header text-2xl text-white">v0.1.1 <span class="text-copper-300 font-sans text-lg font-normal">Preview version</span></h3>
                             </div>
-                            <p class="text-gray-500 text-sm mt-1">Veröffentlicht: DEC 19, 2025 • MC 1.21.1</p>
+                            <p class="text-gray-500 text-sm mt-1">Veröffentlicht: DEC 21, 2025 • MC 1.21.1</p>
                             <div class="mt-3 flex gap-2">
                                 <span class="px-2 py-0.5 rounded bg-green-900/30 text-green-400 text-xs border border-green-900">Stable</span>
                                 <span class="px-2 py-0.5 rounded bg-blue-900/30 text-blue-400 text-xs border border-blue-900">NeoForge</span>
                             </div>
                         </div>
                         <div class="flex gap-3 w-full md:w-auto">
-                            <a href="https://drive.google.com/file/d/1EQqSevgZ67X3uEyi99Vm-6ReaFgYUMBC/view?usp=drive_link" target="_blank" class="flex-1 md:flex-none px-6 py-3 bg-copper-600 hover:bg-copper-500 text-white rounded-lg font-bold transition-colors flex items-center justify-center gap-2 no-underline">
+                            <a href="https://drive.google.com/file/d/1hHq6d3kRmu5JV8f9mk6bj52LGC91NuE3/view?usp=drive_link" target="_blank" class="flex-1 md:flex-none px-6 py-3 bg-copper-600 hover:bg-copper-500 text-white rounded-lg font-bold transition-colors flex items-center justify-center gap-2 no-underline">
                                 <i class="ph-bold ph-download-simple"></i> Download
                             </a>
                         </div>
@@ -262,10 +366,10 @@
                     <details class="mt-6 group">
                         <summary class="cursor-pointer text-copper-300 text-sm flex items-center gap-2 hover:text-copper-100 transition-colors list-none">
                             <i class="ph-bold ph-caret-right group-open:rotate-90 transition-transform"></i>
-                            View Changelog
+                            Siehe Änderungen
                         </summary>
                         <div class="mt-3 pl-6 border-l border-copper-900 text-gray-400 text-sm space-y-1">
-                            <p>• Idk, ist die erste version, updates gab es noch keine</p>
+                            <p>• Mods wurden geupdated</p>
                             <p>• Entfernte 'Herobrine' (vielleicht)</p>
                         </div>
                     </details>
@@ -275,7 +379,7 @@
                 <div class="bg-steam-panel rounded-xl p-6 border border-copper-900/50 hover:border-copper-700 transition-colors opacity-80 hover:opacity-100">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
-                            <h3 class="font-header text-xl text-gray-300">v0.0.0 - v∞.∞.∞ <span class="text-gray-500 font-sans text-base font-normal">Alle versionen</span></h3>
+                            <h3 class="font-header text-xl text-gray-300">v0.1.0 - v∞.∞.∞ <span class="text-gray-500 font-sans text-base font-normal">Alle versionen</span></h3>
                             <p class="text-gray-500 text-sm mt-1">Veröffentlicht: DEC 19, 2025 • MC 1.21.1</p>
                         </div>
                         <a href="https://drive.google.com/drive/folders/1Zo7dvQF86iqXJSw2ucFGBdnRbQOVqQmg?usp=drive_link" target="_blank" class="px-4 py-2 bg-steam-black border border-copper-900 text-copper-300 hover:text-white rounded-lg text-sm transition-colors block text-center">
@@ -351,6 +455,24 @@
 
         // Initialize
         showPage('home');
+
+        // Open the mod list details and focus for accessibility
+        function openModList(e) {
+            const modList = document.getElementById('mod-list');
+            if (modList) {
+                modList.open = true;
+                modList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const firstSummary = modList.querySelector('summary');
+                if (firstSummary && typeof firstSummary.focus === 'function') firstSummary.focus();
+            }
+            if (e && e.preventDefault) e.preventDefault();
+        }
+
+        // Toggle all nested details inside the mod list (open/close)
+        function toggleAll(open) {
+            const nested = document.querySelectorAll('#mod-list details');
+            nested.forEach(d => { d.open = !!open; });
+        }
     </script>
 </body>
 </html>
